@@ -109,15 +109,13 @@ const main = () => {
 		let drawEnd = lineHeight / 2 + canvas.height / 2
 		if(drawEnd >= canvas.height) drawEnd = canvas.height - 1
 
-		let color = {
-			default: "#bf0000",
-			shade: "#820000"
-		}
+		let shade = 0.5 
+		shade -= perpWallDist / 100 * 3
 
-		ctx.fillStyle = "#292929"
-		ctx.fillRect(x, drawStart, 1, lineHeight - canvas.height)
-		ctx.fillStyle = "#a3a3a3"
-		ctx.fillRect(x, drawStart, 1, lineHeight + drawEnd)
+		let color = {
+			default: "rgba(201, 201, 201, " + shade + ")",
+			shade: "rgba(166, 166, 166, " + shade + ")"
+		}
 
 		if(side == 1) {
 			ctx.fillStyle = color.shade
@@ -129,9 +127,9 @@ const main = () => {
 	let moveSpeed = frameTime * 5.0
 	let rotSpeed = frameTime * 3.0
 	let fps = (1 / frameTime) 
-	ctx.font = "20px Comic Sans MS"
+	ctx.font = "15px Arial"
 	ctx.fillStyle = "white"
-	ctx.fillText(fps, 5, 20);
+	ctx.fillText(fps.toFixed(2), 5, 20);
 
 	if(arrowUp) {
 		if(map[Math.floor(player.posX + player.dirX * moveSpeed)][Math.floor(player.posY)] == false) player.posX += player.dirX * moveSpeed 	
