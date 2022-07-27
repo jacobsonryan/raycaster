@@ -4,32 +4,33 @@ const mapWidth = 24
 const mapHeight = 24
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
-let img = new Image()
-img.src = "./CRATE_2G.png"
+
+let texture = new Image()
+texture.src = './tiles.jpeg'
 
 const map = [
 	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,3,3,3,0,0,3,3,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,2,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3,0,0,2,0,1],
-  [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,2,3,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,3,3,3,3,3,3,3,0,0,3,3,3,3,3,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,1,1,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,1,0,0,1,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,1,0,0,1,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,1,1,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1],
+  [1,0,0,0,0,3,3,3,2,2,2,0,0,0,2,2,2,3,3,3,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,4,0,4,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
@@ -47,13 +48,16 @@ let dirX = -1
 let dirY = 0
 let planeX = 0
 let planeY = 0.90
+let wallX
+
+let texXOffset = 0
+let texYOffset = 0
 
 let arrowLeft = false
 let arrowRight = false
 let arrowUp = false
 let arrowDown = false
 let frameTime, oldTime, fps
-
 
 const main = () => {
 	for(let x = 0; x < canvas.width; x++) {
@@ -105,46 +109,45 @@ const main = () => {
 			perpWallDist = (sideDistY - deltaDistY)
 		}
 
+
 		let lineHeight = (canvas.height / perpWallDist)
 		let drawStart = -lineHeight / 2 + canvas.height / 2
-		if(drawStart < 0) drawStart = 0
+		// if(drawStart < 0) drawStart = 0
 		let drawEnd = lineHeight / 2 + canvas.height / 2
 		if(drawEnd >= canvas.height) drawEnd = canvas.height - 1
 
-		let shade = 0.6 
-		shade -= perpWallDist / 100 * 3
+		if(side == 0) {
+			wallX = player.posY + perpWallDist * rayDirY
+		} else {
+			wallX = player.posX + perpWallDist * rayDirX
+		}
+		wallX -= Math.floor(wallX)
 
-		let color 
+		let texX = Math.floor(wallX * texture.width)
+		if(side == 0 && rayDirX > 0) texX = texture.width - texX - 1;
+		if(side == 1 && rayDirY < 0) texX = texture.width - texX - 1;
+		let step = texture.width / lineHeight
 
 		switch(map[Math.floor(mapX)][Math.floor(mapY)]) {
 			case 1:
-				color = {
-					default: "rgba(195, 0, 0, " + shade + ")",
-					shade: "rgba(154, 0, 0, " + shade + ")"
-				}
+				texYOffset = 0
 				break
 			case 2:
-				color = {
-					default: "rgba(10, 201, 0, " + shade + ")",
-					shade: "rgba(8, 146, 0, " + shade + ")"
-				}
+				texYOffset = 128
 				break
 			case 3:
-				color = {
-					default: "rgba(0, 0, 255, " + shade + ")",
-					shade: "rgba(0, 5, 151, " + shade + ")"
-				}
+				texYOffset = 256
+				break
+			case 4:
+				texYOffset = 384
 				break
 		}
 
-
-		if(side == 1) {
-			ctx.fillStyle = color.shade
-		} else {
-			ctx.fillStyle = color.default
-		}
-		ctx.fillRect(x, drawStart, 1, lineHeight)
+		// ctx.drawImage(texture, 0, texYOffset, texX * 2, texture.width, x, drawStart, 1, lineHeight)
+		ctx.drawImage(texture, texX, texYOffset, 1, texture.height / 4, x, drawStart, 1, lineHeight)
+		texX += step
 	}
+
 	let moveSpeed = frameTime * 5.0
 	let rotSpeed = frameTime * 3.0
 	let fps = (1 / frameTime) 
@@ -223,7 +226,6 @@ const gameLoop = (time) => {
 		main()
 }
 
-// setInterval(gameLoop, 30)
 window.requestAnimationFrame(gameLoop)
 
 
