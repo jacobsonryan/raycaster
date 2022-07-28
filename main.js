@@ -16,20 +16,20 @@ const map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,3,2,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,2,3,2,0,0,0,3,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,2,2,0,0,2,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,2,2,0,2,2,2,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,2,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,2,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,3,0,0,0,0,0,0,2,2,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -49,10 +49,10 @@ let wallX
 let texXOffset = 0
 let texYOffset = 0
 
-let arrowLeft = false
-let arrowRight = false
-let arrowUp = false
-let arrowDown = false
+let aKey = false
+let dKey = false
+let wKey = false
+let sKey = false
 let frameTime, oldTime, fps
 
 const main = () => {
@@ -141,8 +141,11 @@ const main = () => {
 				texYOffset = 512
 				break
 		}
+
+		if(side == 0) texYOffset += 641
+
 		// ctx.drawImage(texture, 0, texYOffset, texX * 2, texture.width, x, drawStart, 1, lineHeight)
-		ctx.drawImage(texture, texX, texYOffset, 1, texture.height / 5, x, drawStart, 1, lineHeight)
+		ctx.drawImage(texture, texX, texYOffset, 1, texture.height / 10, x, drawStart, 1, lineHeight)
 		texX += step
 	}
 
@@ -153,15 +156,15 @@ const main = () => {
 	ctx.fillStyle = "white"
 	ctx.fillText(fps.toFixed(2), 5, 20);
 
-	if(arrowUp) {
+	if(wKey) {
 		if(map[Math.floor(player.posX + player.dirX * moveSpeed)][Math.floor(player.posY)] == false) player.posX += player.dirX * moveSpeed 	
 		if(map[Math.floor(player.posX)][Math.floor(player.posY + player.dirY * moveSpeed)] == false) player.posY += player.dirY * moveSpeed
 	} 
-	if(arrowDown) {
+	if(sKey) {
 		if(map[Math.floor(player.posX - player.dirX * moveSpeed)][Math.floor(player.posY)] == false) player.posX -= player.dirX * moveSpeed 
 		if(map[Math.floor(player.posX)][Math.floor(player.posY - player.dirY * moveSpeed)] == false) player.posY -= player.dirY * moveSpeed 
 	} 
-	if(arrowRight) {
+	if(dKey) {
 		let oldDirX = player.dirX
 		player.dirX = player.dirX * Math.cos(-rotSpeed) - player.dirY * Math.sin(-rotSpeed)
 		player.dirY = oldDirX * Math.sin(-rotSpeed) + player.dirY * Math.cos(-rotSpeed)
@@ -169,7 +172,7 @@ const main = () => {
 		planeX = planeX * Math.cos(-rotSpeed) - planeY * Math.sin(-rotSpeed)
 		planeY = oldPlaneX * Math.sin(-rotSpeed) + planeY * Math.cos(-rotSpeed)
 	}
-	if(arrowLeft) {
+	if(aKey) {
 		let oldDirX = player.dirX
 		player.dirX = player.dirX * Math.cos(rotSpeed) - player.dirY * Math.sin(rotSpeed)
 		player.dirY = oldDirX * Math.sin(rotSpeed) + player.dirY * Math.cos(rotSpeed)
@@ -181,32 +184,32 @@ const main = () => {
 
  
 document.addEventListener("keydown", (e) => {
-	if(e.key === "ArrowUp") {
-			arrowUp = true
+	if(e.key === "w") {
+			wKey = true
 	}
-	if(e.key === "ArrowDown") {
-			arrowDown = true
+	if(e.key === "s") {
+			sKey = true
 	}
-	if(e.key === "ArrowLeft") {
-			arrowLeft = true
+	if(e.key === "a") {
+			aKey = true
 	}
-	if(e.key === "ArrowRight") {
-			arrowRight = true
+	if(e.key === "d") {
+			dKey = true
 	}
 })
 
 document.addEventListener("keyup", (e) => {
-	if(e.key === "ArrowUp") {
-			arrowUp = false
+	if(e.key === "w") {
+			wKey = false
 	}
-	if(e.key === "ArrowDown") {
-			arrowDown = false
+	if(e.key === "s") {
+			sKey = false
 	}
-	if(e.key === "ArrowLeft") {
-			arrowLeft = false
+	if(e.key === "a") {
+			aKey = false
 	}
-	if(e.key === "ArrowRight") {
-			arrowRight = false
+	if(e.key === "d") {
+			dKey = false
 	}
 })
 
