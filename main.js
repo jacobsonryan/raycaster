@@ -2,6 +2,7 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 const mapWidth = 24
 const mapHeight = 24
+let texture_data = []
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
@@ -15,21 +16,21 @@ const map = [
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,7,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,2,3,2,0,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,3,2,0,0,0,3,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,2,2,0,0,2,0,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,2,2,0,2,2,2,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,2,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,2,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,3,0,0,0,0,0,0,2,2,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,6,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,5,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,4,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -46,13 +47,13 @@ let planeX = 0
 let planeY = 0.90
 let wallX
 
-let texXOffset = 0
 let texYOffset = 0
 
 let aKey = false
 let dKey = false
 let wKey = false
 let sKey = false
+let arrowUp = false
 let frameTime, oldTime, fps
 
 const main = () => {
@@ -123,6 +124,7 @@ const main = () => {
 		if(side == 0 && rayDirX > 0) texX = texture.width - texX - 1;
 		if(side == 1 && rayDirY < 0) texX = texture.width - texX - 1;
 		let step = texture.width / lineHeight
+		let alpha = perpWallDist / 100 * 10
 
 		switch(map[Math.floor(mapX)][Math.floor(mapY)]) {
 			case 1:
@@ -140,18 +142,24 @@ const main = () => {
 			case 5:
 				texYOffset = 512
 				break
+			case 6:
+				texYOffset = 640
+				break
+			case 7:
+				texYOffset = 768
+				break
 		}
 
-		if(side == 0) texYOffset += 641
-
-		// ctx.drawImage(texture, 0, texYOffset, texX * 2, texture.width, x, drawStart, 1, lineHeight)
-		ctx.drawImage(texture, texX, texYOffset, 1, texture.height / 10, x, drawStart, 1, lineHeight)
+		if(side == 0) texX += 256
+		ctx.drawImage(texture, texX / 2, texYOffset, 1, 128, x, drawStart, 1, lineHeight)
+		// ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`
+		// ctx.fillRect(x, drawStart, 1, lineHeight)
 		texX += step
 	}
 
 	let moveSpeed = frameTime * 5.0
 	let rotSpeed = frameTime * 3.0
-	let fps = (1 / frameTime) 
+	fps = (1 / frameTime) 
 	ctx.font = "15px Arial"
 	ctx.fillStyle = "white"
 	ctx.fillText(fps.toFixed(2), 5, 20);
@@ -182,7 +190,6 @@ const main = () => {
 	}
 }
 
- 
 document.addEventListener("keydown", (e) => {
 	if(e.key === "w") {
 			wKey = true
@@ -195,6 +202,9 @@ document.addEventListener("keydown", (e) => {
 	}
 	if(e.key === "d") {
 			dKey = true
+	}
+	if(e.key === "ArrowUp") {
+			arrowUp = true
 	}
 })
 
@@ -211,22 +221,23 @@ document.addEventListener("keyup", (e) => {
 	if(e.key === "d") {
 			dKey = false
 	}
+	if(e.key === "ArrowUp") {
+			arrowUp = false
+	}
 })
-
-const clearScreen = () => {
-    ctx.fillStyle = "black"
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
 
 const gameLoop = (time) => {
 	  frameTime = (time - oldTime) / 1000;
     oldTime = time;
     fps = Math.round(1 / frameTime);
 		window.requestAnimationFrame(gameLoop)
-    clearScreen()
+    ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = "#4d4d4d"
+		ctx.fillRect(0, 0, canvas.width, canvas.height / 2)
+		ctx.fillStyle = "grey"
+		ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height)
 		main()
 }
 
 window.requestAnimationFrame(gameLoop)
-
-
